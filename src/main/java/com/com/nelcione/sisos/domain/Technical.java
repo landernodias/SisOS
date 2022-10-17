@@ -3,12 +3,21 @@ package com.com.nelcione.sisos.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Technical extends Person{
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
+import com.com.nelcione.sisos.domain.enums.Profile;
+
+@Entity
+public class Technical extends Person{
+	private static final long serialVersionUID = 1L;
+	
+	@OneToMany(mappedBy = "technical") //um tecnico para muitos chamados
 	private List<Called> calleds = new ArrayList<>();
 
 	public Technical() {
 		super();
+		addProfiles(Profile.CLIENT);
 	}
 
 	public Technical(Integer id, String name, String cpf, String email, String password) {

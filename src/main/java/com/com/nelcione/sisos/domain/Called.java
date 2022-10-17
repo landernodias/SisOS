@@ -1,22 +1,44 @@
 package com.com.nelcione.sisos.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import com.com.nelcione.sisos.domain.enums.Priority;
 import com.com.nelcione.sisos.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Called {
-	
+@Entity
+public class Called implements Serializable {	
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate openingDate = LocalDate.now(); //data de abertura
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate cosingDate = LocalDate.now(); //data de fechamento
+	
 	private Priority priority;
 	private Status status;
 	private String title;
 	private String observation;
 	
+	@ManyToOne //muitos chamatos para um tecnico muitos para 1
+	@JoinColumn(name = "technical_id")
 	private Technical technical;
+	
+	@ManyToOne // um cliente tem muitos chamados
+	@JoinColumn(name = "client_id")
 	private Client client;
 	
 	public Called() {

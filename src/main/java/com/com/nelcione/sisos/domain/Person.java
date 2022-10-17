@@ -1,21 +1,46 @@
 package com.com.nelcione.sisos.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.com.nelcione.sisos.domain.enums.Profile;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-public abstract class Person {
+import com.com.nelcione.sisos.domain.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+//anotation JPA
+@Entity
+public abstract class Person implements Serializable { // Serializable: permite cria uma sequencia de bytes da instancia para que possa ser trafegado em redes
+	private static final long serialVersionUID = 1L;
 	
+	@Id //fala que esse campo é id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // como esse id será gerado
 	protected Integer id;
 	protected String name;
+	
+	@Column(unique = true) // o campo CPF é unico
 	protected String cpf;
+	
+	@Column(unique = true) // o compo email é unico
 	protected String email;
 	protected String password;
+	
+	@ElementCollection(fetch = FetchType.EAGER) // assegura que a lista de perfil venha com o usuario
+	@CollectionTable(name = "PROFILE")
 	protected Set<Integer> profiles = new HashSet<>(); // Lista de perfil do tipo SET(chave, valor) //evita newPonterException quando inicia com hashset// não vai ter dois perfis igual dentro da lista
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")//formato da data na base de dados
 	protected LocalDate createData = LocalDate.now(); // pega a instancia atual de data que esse objeto foi criado
 	
 	//todo usuario cria precisa ter pelo menos o perfil de cliente
