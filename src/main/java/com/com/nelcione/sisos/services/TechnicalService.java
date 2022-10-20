@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.com.nelcione.sisos.domain.Technical;
 import com.com.nelcione.sisos.repositories.TechnicalRepository;
+import com.com.nelcione.sisos.services.exceptions.ObjectNotFountException;
 
 @Service
 public class TechnicalService {
@@ -16,7 +17,6 @@ public class TechnicalService {
 	
 	public Technical findById(Integer id) {
 		Optional<Technical> obj = repository.findById(id);
-		return obj.orElse(null); // se não encontrar o objeto retorna nulo
+		return obj.orElseThrow(() -> new ObjectNotFountException("Objeto não encontrado Id: " + id));
 	}
-
 }
