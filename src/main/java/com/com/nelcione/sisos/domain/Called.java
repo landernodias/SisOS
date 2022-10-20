@@ -35,7 +35,8 @@ public class Called implements Serializable {
 	
 	@ManyToOne //muitos chamatos para um tecnico muitos para 1
 	@JoinColumn(name = "technical_id")
-	private Technical technical; // pode causar erro de serialização
+	private Technical technical;
+//	private Technical technical; // pode causar erro de serialização
 	
 	@ManyToOne // um cliente tem muitos chamados
 	@JoinColumn(name = "client_id")

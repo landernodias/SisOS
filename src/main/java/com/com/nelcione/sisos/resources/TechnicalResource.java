@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.com.nelcione.sisos.domain.Technical;
+import com.com.nelcione.sisos.domain.dtos.TechnicalDTO;
 import com.com.nelcione.sisos.services.TechnicalService;
 
 //REST -> Recursos
@@ -23,9 +24,9 @@ public class TechnicalResource {
 	
 	// ResponseEntity: controla todas resposta HTTP
 	@GetMapping(value = "/{id}") // por ser uma busca usase o getMapping   /{id}: informa que recebe um path do tipo variable possui parametros
-	public ResponseEntity<Technical> findById(@PathVariable Integer id){
+	public ResponseEntity<TechnicalDTO> findById(@PathVariable Integer id){
 		Technical obj = this.service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new TechnicalDTO(obj));
 	}
 }
 
