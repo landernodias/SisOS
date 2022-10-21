@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.com.nelcione.sisos.domain.Technical;
+import com.com.nelcione.sisos.domain.dtos.TechnicalDTO;
 import com.com.nelcione.sisos.repositories.TechnicalRepository;
 import com.com.nelcione.sisos.services.exceptions.ObjectNotFountException;
 
@@ -23,5 +24,11 @@ public class TechnicalService {
 
 	public List<Technical> findAll() {
 		return repository.findAll();
+	}
+
+	public Technical create(TechnicalDTO objDTO) {
+		objDTO.setId(null); // por segurança o id deve ser nulo pois ele é definido via banco
+		Technical newObj = new Technical(objDTO);
+		return repository.save(newObj);
 	}
 }

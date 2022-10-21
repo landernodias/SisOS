@@ -25,6 +25,7 @@ public class TechnicalDTO implements Serializable {
 
 	public TechnicalDTO() {
 		super();
+		addProfiles(Profile.CLIENT);
 	}
 
 	public TechnicalDTO(Technical obj) {
@@ -36,6 +37,7 @@ public class TechnicalDTO implements Serializable {
 		this.password = obj.getPassword();
 		this.profiles = obj.getProfiles().stream().map(x -> x.getCode()).collect(Collectors.toSet());
 		this.createData = obj.getCreateData();
+		addProfiles(Profile.CLIENT);
 	}
 
 	public Integer getId() {
