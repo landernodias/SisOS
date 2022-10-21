@@ -38,6 +38,7 @@ public class TechnicalService {
 		return repository.save(newObj);
 	}
 
+	//cpf ou email já cadastrado no banco de dados
 	private void validByCPFEmail(TechnicalDTO objDTO) {
 		Optional<Person> obj = personRepository.findByCpf(objDTO.getCpf());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) { // se ele for presente ele existe e se o id de quem estamos passando for diferente da pessoa que está no banco não pode criar
@@ -50,4 +51,4 @@ public class TechnicalService {
 		}
 
 	}
-}
+} 
