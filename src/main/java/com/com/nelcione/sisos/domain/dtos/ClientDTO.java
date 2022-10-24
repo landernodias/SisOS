@@ -11,11 +11,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.com.nelcione.sisos.domain.Technical;
+import com.com.nelcione.sisos.domain.Client;
 import com.com.nelcione.sisos.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TechnicalDTO implements Serializable {	
+public class ClientDTO implements Serializable {	
 	private static final long serialVersionUID = 1L;
 
 	protected Integer id;
@@ -34,12 +34,12 @@ public class TechnicalDTO implements Serializable {
 	@JsonFormat
 	protected LocalDate createData = LocalDate.now();
 
-	public TechnicalDTO() {
+	public ClientDTO() {
 		super();
 		addProfiles(Profile.CLIENT);
 	}
 
-	public TechnicalDTO(Technical obj) {
+	public ClientDTO(Client obj) {
 		super();
 		this.id = obj.getId();
 		this.name = obj.getName();
