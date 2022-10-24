@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,12 @@ public class TechnicalResource {
 		Technical newObj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri(); // URL de acesso a esse novo objeto criado
 		return ResponseEntity.created(uri).build();		
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<TechnicalDTO> update(@PathVariable Integer id,@Valid @RequestBody TechnicalDTO objDTO) {
+		Technical obj = service.update(id, objDTO);
+		return ResponseEntity.ok().body(new TechnicalDTO(obj));
 	}
 }
 

@@ -3,6 +3,8 @@ package com.com.nelcione.sisos.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,14 @@ public class TechnicalService {
 		validByCPFEmail(objDTO);
 		Technical newObj = new Technical(objDTO);
 		return repository.save(newObj);
+	}
+	
+	public Technical update(Integer id, @Valid TechnicalDTO objDTO) {
+		objDTO.setId(id); //seta o id com add passado por paraemetro 
+		Technical oldObj = findById(id);
+		validByCPFEmail(objDTO);
+		oldObj = new Technical(objDTO);
+		return repository.save(oldObj); // salva as informações no banco
 	}
 
 	//cpf ou email já cadastrado no banco de dados
