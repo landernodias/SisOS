@@ -48,6 +48,15 @@ public class TechnicalService {
 		return repository.save(oldObj); // salva as informações no banco
 	}
 
+
+	public void delete(Integer id) {
+		Technical obj = findById(id);
+		if(obj.getCalleds().size() > 0) { // verifica se existe ordens de serviço vinculado ao technical que desejo deletar
+			throw new DataIntegrityViolationException("O tecnico possui ordens de serviço e não pode ser deletado!");
+		}
+		repository.deleteById(id);
+	}
+
 	//cpf ou email já cadastrado no banco de dados
 	private void validByCPFEmail(TechnicalDTO objDTO) {
 		Optional<Person> obj = personRepository.findByCpf(objDTO.getCpf());
@@ -61,4 +70,5 @@ public class TechnicalService {
 		}
 
 	}
+
 } 
