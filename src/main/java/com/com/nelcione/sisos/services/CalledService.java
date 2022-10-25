@@ -1,5 +1,6 @@
 package com.com.nelcione.sisos.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class CalledService {
 	public Called findById(Integer id) {
 		Optional<Called> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFountException("Objeto não encontrado! ID: " + id));
+	}
+
+	public List<Called> findAll() {
+		return repository.findAll();
 	}
 }
