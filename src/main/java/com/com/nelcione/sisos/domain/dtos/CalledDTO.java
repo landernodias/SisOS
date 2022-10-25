@@ -3,6 +3,8 @@ package com.com.nelcione.sisos.domain.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 import com.com.nelcione.sisos.domain.Called;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -10,16 +12,31 @@ public class CalledDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate openingDate = LocalDate.now(); //data de abertura
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate cosingDate = LocalDate.now(); //data de fechamento
+	
+	@NotNull(message = "O campo PRIORIDADE é Requerido!")
 	private Integer priority;
+	
+	@NotNull(message = "O campo STATUS é Requerido!")
 	private Integer status;
+	
+	@NotNull(message = "O campo TITULO é Requerido!")
 	private String title;
+	
+	@NotNull(message = "O campo OBSERVAÇÕES é Requerido!")
 	private String observation;
+	
+	@NotNull(message = "O campo TECNICO é Requerido!")
 	private Integer idTechnical;
+	
+	@NotNull(message = "O campo CLIENTE é Requerido!")
 	private Integer idClient;
+	
 	private String nameTechnical;
 	private String nameClient;
 	
