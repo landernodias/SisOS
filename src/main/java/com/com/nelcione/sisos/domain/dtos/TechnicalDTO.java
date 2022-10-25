@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import com.com.nelcione.sisos.domain.Technical;
 import com.com.nelcione.sisos.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,7 +20,7 @@ public class TechnicalDTO implements Serializable {
 	@NotNull(message = "O campo NOME é requerido!")
 	protected String name;
 	@Size(max = 11, min = 11, message = "Campo CPF deve possuir 11 caracteres")
-	@CPF //verifica se é um cpf valido
+//	@CPF //verifica se é um cpf valido
 	@NotNull(message = "O campo CPF é requerido!")
 	protected String cpf;
 	@NotNull(message = "O campo E-MAIL é requerido!")
