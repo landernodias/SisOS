@@ -1,5 +1,6 @@
 package com.com.nelcione.sisos.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,13 @@ public class CalledService {
 		return repository.save(newCalled(objDTO));
 	}
 	
+	public Called update(Integer id, @Valid CalledDTO objDTO) {
+		objDTO.setId(id);
+		Called oldObj = findById(id);
+		oldObj = newCalled(objDTO);
+		return repository.save(oldObj);
+	}
+	
 	//cria ou atualiza um novo chamado
 	private Called newCalled(CalledDTO obj) {
 		Technical technical = technicalService.findById(obj.getIdTechnical());
@@ -50,6 +58,10 @@ public class CalledService {
 		Called called = new Called();
 		if(obj.getId() != null) { // se true deseja atualizar o chamado
 			called.setId(obj.getId());
+		}
+		
+		if(obj.getStatus().equals(2)) {
+			called.setCosingDate(LocalDate.now());
 		}
 		
 		//caso contrario cria o chamado
@@ -61,4 +73,5 @@ public class CalledService {
 		called.setObservation(obj.getObservation());
 		return called;
 	}
+
 }
