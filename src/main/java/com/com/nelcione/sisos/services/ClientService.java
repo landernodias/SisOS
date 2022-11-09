@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.com.nelcione.sisos.domain.Client;
@@ -23,6 +24,8 @@ public class ClientService {
 	private ClientRepository repository;
 	@Autowired
 	private PersonRepository personRepository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public Client findById(Integer id) {
 		Optional<Client> obj = repository.findById(id);
@@ -35,6 +38,7 @@ public class ClientService {
 
 	public Client create(ClientDTO objDTO) {
 		objDTO.setId(null);
+		objDTO.setPassword(encoder.encode(objDTO.getPassword()));
 		validByCPFEmail(objDTO);
 		Client newObj = new Client(objDTO);
 		return repository.save(newObj);

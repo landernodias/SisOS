@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.com.nelcione.sisos.domain.Person;
@@ -23,7 +24,8 @@ public class TechnicalService {
 	private TechnicalRepository repository;
 	@Autowired
 	private PersonRepository personRepository;
-	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	public Technical findById(Integer id) {
 		Optional<Technical> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFountException("Objeto não encontrado Id: " + id));
@@ -35,6 +37,7 @@ public class TechnicalService {
 
 	public Technical create(TechnicalDTO objDTO) {
 		objDTO.setId(null); // por segurança o id deve ser nulo pois ele é definido via banco
+		objDTO.setPassword(encoder.encode(objDTO.getPassword()));
 		validByCPFEmail(objDTO);
 		Technical newObj = new Technical(objDTO);
 		return repository.save(newObj);

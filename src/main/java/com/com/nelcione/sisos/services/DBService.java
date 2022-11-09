@@ -3,6 +3,7 @@ package com.com.nelcione.sisos.services;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.com.nelcione.sisos.domain.Called;
@@ -26,20 +27,23 @@ public class DBService {
 	@Autowired
 	private PersonRepository personRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	public void instanceDB() {
 		//cria um tecnico para teste
-				Technical tech1 = new Technical(null, "Nelcione Dias", "30047235659", "nelcionedias@gmail.com", "1234");
+				Technical tech1 = new Technical(null, "Nelcione Dias", "30047235659", "nelcionedias@gmail.com", encoder.encode("1234"));
 				tech1.addProfiles(Profile.ADMIN);
-				Technical tech2 = new Technical(null, "Danilo Oliveira", "78739182541", "danilooliveira@gmail.com", "1425");
-				Technical tech3 = new Technical(null, "Bruno Moura", "24793236251", "bruno@gmail.com", "1425");
-				Technical tech4 = new Technical(null, "Gustavo Borges", "23495304266", "gustavo@gmail.com", "1425");
-				Technical tech5 = new Technical(null, "Eduardo Montana", "38839156704", "edumontana@gmail.com", "1425");
+				Technical tech2 = new Technical(null, "Danilo Oliveira", "78739182541", "danilooliveira@gmail.com", encoder.encode("1234"));
+				Technical tech3 = new Technical(null, "Bruno Moura", "24793236251", "bruno@gmail.com", encoder.encode("1234"));
+				Technical tech4 = new Technical(null, "Gustavo Borges", "23495304266", "gustavo@gmail.com", encoder.encode("1234"));
+				Technical tech5 = new Technical(null, "Eduardo Montana", "38839156704", "edumontana@gmail.com", encoder.encode("1234"));
 				
-				Client cli1 = new Client(null, "Anna Claudia", "41326668595", "annaclaudia@gmail.com", "1234");
-				Client cli2 = new Client(null, "Luzia Barbosa", "26656548148", "luziabarbosa@gmail.com", "1234");
-				Client cli3 = new Client(null, "Adeilson Barbosa", "43026343242", "adeilsonbarbosa@gmail.com", "1234");
-				Client cli4 = new Client(null, "Nelson Fernandes", "18312558632", "nelson234@gmail.com", "1234");
-				Client cli5 = new Client(null, "Alzira Belmira", "70711426708", "alzirabelmira@gmail.com", "1234");
+				Client cli1 = new Client(null, "Anna Claudia", "41326668595", "annaclaudia@gmail.com", encoder.encode("1234"));
+				Client cli2 = new Client(null, "Luzia Barbosa", "26656548148", "luziabarbosa@gmail.com", encoder.encode("1234"));
+				Client cli3 = new Client(null, "Adeilson Barbosa", "43026343242", "adeilsonbarbosa@gmail.com", encoder.encode("1234"));
+				Client cli4 = new Client(null, "Nelson Fernandes", "18312558632", "nelson234@gmail.com", encoder.encode("1234"));
+				Client cli5 = new Client(null, "Alzira Belmira", "70711426708", "alzirabelmira@gmail.com", encoder.encode("1234"));
 				
 				
 				Called c1 = new Called(null, Priority.MEDIUM, Status.PROGRESS, "Called 01", "first Called 1", tech1, cli1);
