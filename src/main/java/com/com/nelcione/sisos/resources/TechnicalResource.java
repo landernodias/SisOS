@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,20 +47,21 @@ public class TechnicalResource {
 		List<TechnicalDTO> listDTO = list.stream().map(obj -> new TechnicalDTO(obj)).collect(Collectors.toList()); //converte technical em technicalDTO
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<TechnicalDTO> create(@Valid @RequestBody TechnicalDTO objDTO) { //cria um technical
 		Technical newObj = service.create(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri(); // URL de acesso a esse novo objeto criado
 		return ResponseEntity.created(uri).build();		
 	}
-	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<TechnicalDTO> update(@PathVariable Integer id,@Valid @RequestBody TechnicalDTO objDTO) { // atualiza um technical
 		Technical obj = service.update(id, objDTO);
 		return ResponseEntity.ok().body(new TechnicalDTO(obj));
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<TechnicalDTO> delete(@PathVariable Integer id){
 		service.delete(id);

@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -21,6 +22,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private AuthenticationManager authenticationManager; //verifica se o usuario senha é valido
     private JWTUtil jwtUtil; //se altenticar gera um token
 
+//    private UserDetailsService userDetailsService;
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
@@ -46,7 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             String username = ((UserSS) authResult.getPrincipal()).getUsername(); //pega o usuario
             String token = jwtUtil.generateToken(username); //gera um token
             response.setHeader("access-control-expose-headers", "Authorization");
-             response.setHeader("Authorization", "Bearer " + token); //retornando o token para o usuartio
+            response.setHeader("Authorization", "Bearer " + token); //retornando o token para o usuartio
     }
 
     @Override
